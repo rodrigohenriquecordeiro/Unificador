@@ -9,51 +9,79 @@ namespace Unificador
     {
         static void Main(string[] args)
         {
-            string path = string.Empty, arquivoUnificado = string.Empty;
             List<string> lstArquivos = new List<string>();
-            
+            ConsoleColor corTextoOriginal = Console.ForegroundColor;
+
             Console.WriteLine(">---> Unificador de Arquivos <---<");
             Console.Write("\nDigite o local da pasta em que pretende trabalhar: ");
+
+            Console.ForegroundColor = ConsoleColor.Green;
             string pasta = Console.ReadLine();
+            Console.ForegroundColor = corTextoOriginal;
 
             Console.Write("Quantos arquivos você pretende unificar? ");
+            Console.ForegroundColor = ConsoleColor.Green;
             int quantidadeDeArquivos = int.Parse(Console.ReadLine());
+            Console.ForegroundColor = corTextoOriginal;
 
             for (int i = 1; i <= quantidadeDeArquivos; i++)
             {
-                if (i == 1)
-                {
-                    Console.Write($"\nDigite o nome do {i}º arquivo: "); string arquivo = Console.ReadLine();
-                    path = $@"{pasta}\{arquivo}.csv";
-                    arquivoUnificado = $@"{pasta}\ArquivoUnificado.csv";
-                    string[] lines = File.ReadAllLines(path);
-                    using StreamWriter sw = File.AppendText(arquivoUnificado);
-                    foreach (string line in lines)
-                        lstArquivos.Add(line);
-                    Console.WriteLine($"Foram adicionados {lines.Skip(1).Count()} linhas ao Arquivo Unificado");
-                }
-                else
-                {
-                    Console.Write($"\nDigite o nome do {i}º arquivo: "); string arquivo = Console.ReadLine();
-                    path = $@"{pasta}\{arquivo}.csv";
-                    arquivoUnificado = $@"{pasta}\ArquivoUnificado.csv";
-                    string[] lines = File.ReadAllLines(path);
-                    using StreamWriter sw = File.AppendText(arquivoUnificado);
-                    foreach (string line in lines.Skip(1)) 
-                        lstArquivos.Add(line);
-                    Console.WriteLine($"Foram adicionados {lines.Skip(1).Count()} linhas ao Arquivo Unificado");
-                }
+                Console.Write($"\nDigite o nome do {i}º arquivo: ");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                string[] lines = File.ReadAllLines($@"{pasta}\{Console.ReadLine()}.csv");
+
+                foreach (string line in lines)
+                    lstArquivos.Add(line);
+
+                LogLinhasAdicionadas(corTextoOriginal, lines);
             }
             Console.WriteLine();
+            Console.ForegroundColor = corTextoOriginal;
+            EscreveArquivoUnificado(lstArquivos, pasta);
+            FinalizaProcessamento(lstArquivos, corTextoOriginal);
+            
+            Console.WriteLine();
+            Console.ForegroundColor = corTextoOriginal;
+            Console.Write("\nTecle enter para sair ");
+            Console.ReadLine();
+        }
 
-            using (StreamWriter sw = File.AppendText(arquivoUnificado))
+        private static void LogLinhasAdicionadas(ConsoleColor corTextoOriginal, string[] lines)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"\tForam adicionados {lines.Count() - 1} linhas ao Arquivo Unificado");
+            Console.ForegroundColor = corTextoOriginal;
+        }
+
+        private static void EscreveArquivoUnificado(List<string> lstArquivos, string pasta)
+        {
+            CorrigeCabecalhoDaLista(lstArquivos);
+
+            using (StreamWriter sw = File.AppendText($@"{pasta}\ArquivoUnificado.csv"))
             {
                 foreach (string line in lstArquivos)
-                {
                     sw.WriteLine(line);
-                }
             }
-            Console.WriteLine("Unificação finalizada com sucesso");
+        }
+
+        private static List<string> CorrigeCabecalhoDaLista(List<string> lstArquivos)
+        {
+            string cabecalho = lstArquivos[0];
+
+            foreach (var item in lstArquivos.Skip(0))
+                if (cabecalho == item) lstArquivos.Remove(cabecalho);
+
+            lstArquivos.Insert(0, cabecalho);
+            return lstArquivos;
+        }
+
+        private static void FinalizaProcessamento(List<string> lstArquivos, ConsoleColor corTextoOriginal)
+        {
+            Console.WriteLine($"Processamento finalizado com sucesso!");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write($"\tGerado Arquivo Unificado com ");
+            Console.Write($"{CorrigeCabecalhoDaLista(lstArquivos).Count - 1} linhas de conteúdo");
+            Console.ForegroundColor = corTextoOriginal;
         }
     }
 }
