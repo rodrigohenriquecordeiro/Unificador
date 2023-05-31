@@ -9,7 +9,7 @@ namespace Unificador
     {
         static void Main(string[] args)
         {
-            string path = string.Empty;
+            string path = string.Empty, arquivoUnificado = string.Empty;
             List<string> lstArquivos = new List<string>();
             
             Console.WriteLine(">---> Unificador de Arquivos <---<");
@@ -23,77 +23,37 @@ namespace Unificador
             {
                 if (i == 1)
                 {
-                    Console.Write($"Digite o nome do {i}º arquivo: "); string arquivo = Console.ReadLine();
+                    Console.Write($"\nDigite o nome do {i}º arquivo: "); string arquivo = Console.ReadLine();
                     path = $@"{pasta}\{arquivo}.csv";
-                    string arquivoUnificado = $@"{pasta}\ArquivoUnificado.csv";
+                    arquivoUnificado = $@"{pasta}\ArquivoUnificado.csv";
                     string[] lines = File.ReadAllLines(path);
                     using StreamWriter sw = File.AppendText(arquivoUnificado);
-                    foreach (string line in lines) lstArquivos.Add(line);
+                    foreach (string line in lines)
+                        lstArquivos.Add(line);
+                    Console.WriteLine($"Foram adicionados {lines.Skip(1).Count()} linhas ao Arquivo Unificado");
                 }
                 else
                 {
-                    Console.Write($"Digite o nome do {i}º arquivo: "); string arquivo = Console.ReadLine();
+                    Console.Write($"\nDigite o nome do {i}º arquivo: "); string arquivo = Console.ReadLine();
                     path = $@"{pasta}\{arquivo}.csv";
-                    string arquivoUnificado = $@"{pasta}\ArquivoUnificado.csv";
+                    arquivoUnificado = $@"{pasta}\ArquivoUnificado.csv";
                     string[] lines = File.ReadAllLines(path);
                     using StreamWriter sw = File.AppendText(arquivoUnificado);
-                    foreach (string line in lines.Skip(1)) lstArquivos.Add(line);
+                    foreach (string line in lines.Skip(1)) 
+                        lstArquivos.Add(line);
+                    Console.WriteLine($"Foram adicionados {lines.Skip(1).Count()} linhas ao Arquivo Unificado");
                 }
             }
+            Console.WriteLine();
 
-            foreach (var item in lstArquivos)
+            using (StreamWriter sw = File.AppendText(arquivoUnificado))
             {
-                Console.WriteLine($"{item}");
+                foreach (string line in lstArquivos)
+                {
+                    sw.WriteLine(line);
+                }
             }
-            Console.ReadLine();
-            //Console.Write("Digite o nome do primeiro arquivo: ");
-            //string primeiroArquivo = Console.ReadLine();
-
-            //Console.Write("Digite o nome do segundo arquivo: ");
-            //string segundoArquivo = Console.ReadLine();
-
-            //Console.WriteLine($"Pasta: {pasta}" +
-            //    $"\nPrimeiro Arquivo: {primeiroArquivo}" +
-            //    $"\nSegundo Arquivo: {segundoArquivo}");
-
-            //string path1 = @$"{pasta}\{primeiroArquivo}.csv";
-            //string path2 = @$"{pasta}\{segundoArquivo}.csv";
-
-            //Console.WriteLine($"Path1: {path1}");
-            //Console.WriteLine($"Path2: {path2}");
-            //Console.ReadLine();
-
-            //string path1 = @"C:\Projetos\Back-End\CSharp\ProjetosPessoais\Unificador\Arquivos\Sudeste.csv";
-            //string path2 = @"C:\Projetos\Back-End\CSharp\ProjetosPessoais\Unificador\Arquivos\Sul.csv";
-            //string arquivoUnificado = @"C:\Projetos\Back-End\CSharp\ProjetosPessoais\Unificador\Arquivos\SulSudeste.csv";
-
-            //try
-            //{
-            //    string[] lines1 = File.ReadAllLines(path1);
-            //    string[] lines2 = File.ReadAllLines(path2);
-
-            //    using (StreamWriter sw = File.AppendText(arquivoUnificado))
-            //    {
-            //        foreach (string line in lines1) 
-            //        {
-            //            sw.WriteLine(line);
-            //        }
-            //    }
-
-            //    using (StreamWriter sw = File.AppendText(arquivoUnificado))
-            //    {
-            //        foreach (string line in lines2.Skip(1))
-            //        {
-            //            sw.WriteLine(line);
-            //        }
-            //    }
-
-            //    Console.WriteLine("Unificação finalizada com sucesso");
-            //}
-            //catch (IOException e)
-            //{
-            //    Console.WriteLine(e.Message);
-            //}
+            Console.WriteLine("Unificação finalizada com sucesso");
         }
     }
 }
