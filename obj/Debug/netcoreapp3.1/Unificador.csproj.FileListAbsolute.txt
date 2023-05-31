@@ -1,0 +1,14 @@
+C:\Projetos\Back-End\CSharp\ProjetosPessoais\Unificador\bin\Debug\netcoreapp3.1\Unificador.exe
+C:\Projetos\Back-End\CSharp\ProjetosPessoais\Unificador\bin\Debug\netcoreapp3.1\Unificador.deps.json
+C:\Projetos\Back-End\CSharp\ProjetosPessoais\Unificador\bin\Debug\netcoreapp3.1\Unificador.runtimeconfig.json
+C:\Projetos\Back-End\CSharp\ProjetosPessoais\Unificador\bin\Debug\netcoreapp3.1\Unificador.runtimeconfig.dev.json
+C:\Projetos\Back-End\CSharp\ProjetosPessoais\Unificador\bin\Debug\netcoreapp3.1\Unificador.dll
+C:\Projetos\Back-End\CSharp\ProjetosPessoais\Unificador\bin\Debug\netcoreapp3.1\Unificador.pdb
+C:\Projetos\Back-End\CSharp\ProjetosPessoais\Unificador\obj\Debug\netcoreapp3.1\Unificador.csproj.AssemblyReference.cache
+C:\Projetos\Back-End\CSharp\ProjetosPessoais\Unificador\obj\Debug\netcoreapp3.1\Unificador.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projetos\Back-End\CSharp\ProjetosPessoais\Unificador\obj\Debug\netcoreapp3.1\Unificador.AssemblyInfoInputs.cache
+C:\Projetos\Back-End\CSharp\ProjetosPessoais\Unificador\obj\Debug\netcoreapp3.1\Unificador.AssemblyInfo.cs
+C:\Projetos\Back-End\CSharp\ProjetosPessoais\Unificador\obj\Debug\netcoreapp3.1\Unificador.csproj.CoreCompileInputs.cache
+C:\Projetos\Back-End\CSharp\ProjetosPessoais\Unificador\obj\Debug\netcoreapp3.1\Unificador.dll
+C:\Projetos\Back-End\CSharp\ProjetosPessoais\Unificador\obj\Debug\netcoreapp3.1\Unificador.pdb
+C:\Projetos\Back-End\CSharp\ProjetosPessoais\Unificador\obj\Debug\netcoreapp3.1\Unificador.genruntimeconfig.cache
