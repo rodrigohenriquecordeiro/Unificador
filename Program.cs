@@ -27,16 +27,29 @@ namespace Unificador
             }
             Console.ForegroundColor = corTextoOriginal;
 
+            Console.Write("O cabeçalho no arquivo possui quantas linhas? ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            int cabecalho = 1;
+            while (!int.TryParse(Console.ReadLine(), out cabecalho))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\tValor inválido, tente novamente!");
+                Console.ForegroundColor = corTextoOriginal;
+                Console.Write("O cabeçalho no arquivo possui quantas linhas? ");
+                Console.ForegroundColor = ConsoleColor.Green;
+            }
+            Console.ForegroundColor = corTextoOriginal;
+
             int quantidadeDeArquivos = QuantidadeDeArquivos(corTextoOriginal);
             for (int i = 1; i <= quantidadeDeArquivos; i++)
             {
                 string[] lines = ValidaArquivo(lstArquivos, lstArquivosInseridos, pasta, i);
-                LogLinhasAdicionadas(corTextoOriginal, lines);
+                LogLinhasAdicionadas(corTextoOriginal, lines, cabecalho);
             }
             Console.WriteLine();
             Console.ForegroundColor = corTextoOriginal;
-            EscreveArquivoUnificado(lstArquivos, pasta);
-            FinalizaProcessamento(lstArquivos, corTextoOriginal);
+            EscreveArquivoUnificado(lstArquivos, pasta, cabecalho);
+            FinalizaProcessamento(lstArquivos, corTextoOriginal, cabecalho);
 
             Console.WriteLine();
             Console.ForegroundColor = corTextoOriginal;
@@ -137,16 +150,16 @@ namespace Unificador
             return arquivo;
         }
 
-        private static void LogLinhasAdicionadas(ConsoleColor corTextoOriginal, string[] lines)
+        private static void LogLinhasAdicionadas(ConsoleColor corTextoOriginal, string[] lines, int cabecalho)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\tForam adicionados {lines.Count() - 1} linhas ao Arquivo Unificado");
+            Console.WriteLine($"\tForam adicionados {lines.Count() - cabecalho} linhas ao Arquivo Unificado");
             Console.ForegroundColor = corTextoOriginal;
         }
 
-        private static void EscreveArquivoUnificado(List<string> lstArquivos, string pasta)
+        private static void EscreveArquivoUnificado(List<string> lstArquivos, string pasta, int cabecalho)
         {
-            CorrigeCabecalhoDaLista(lstArquivos);
+            CorrigeCabecalhoDaLista(lstArquivos, cabecalho);
 
             using (StreamWriter sw = File.AppendText($@"{pasta}\ArquivoUnificado.csv"))
             {
@@ -155,23 +168,26 @@ namespace Unificador
             }
         }
 
-        private static List<string> CorrigeCabecalhoDaLista(List<string> lstArquivos)
+        private static List<string> CorrigeCabecalhoDaLista(List<string> lstArquivos, int cabecalho)
         {
-            string cabecalho = lstArquivos[0];
+            for (int i = 0; i < cabecalho; i++)
+            {
+                string cabecalhoParaRemover = lstArquivos[i];
 
-            foreach (var item in lstArquivos.Skip(0))
-                if (cabecalho == item) lstArquivos.Remove(cabecalho);
+                foreach (var item in lstArquivos.Skip(0))
+                    if (cabecalhoParaRemover == item) lstArquivos.Remove(cabecalhoParaRemover);
 
-            lstArquivos.Insert(0, cabecalho);
+                lstArquivos.Insert(i, cabecalhoParaRemover);
+            }
             return lstArquivos;
         }
 
-        private static void FinalizaProcessamento(List<string> lstArquivos, ConsoleColor corTextoOriginal)
+        private static void FinalizaProcessamento(List<string> lstArquivos, ConsoleColor corTextoOriginal, int cabecalho)
         {
             Console.WriteLine($"Processamento finalizado com sucesso!");
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write($"\tGerado Arquivo Unificado com ");
-            Console.Write($"{CorrigeCabecalhoDaLista(lstArquivos).Count - 1} linhas de conteúdo");
+            Console.Write($"{CorrigeCabecalhoDaLista(lstArquivos, cabecalho).Count - cabecalho} linhas de conteúdo");
             Console.ForegroundColor = corTextoOriginal;
         }
     }
