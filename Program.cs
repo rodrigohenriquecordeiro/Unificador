@@ -114,13 +114,25 @@ namespace Unificador
             while (lstArquivosInseridos.Contains(arquivo) && i > 1)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\tArquivo {arquivo} já foi inserido. Escolha outro!");
+                Console.WriteLine($"\tArquivo {arquivo} já foi inserido");
+                
                 Console.ForegroundColor = corTextoOriginal;
-
-                Console.Write($"\nDigite o nome do {i}º arquivo: ");
+                Console.Write("\nVocê gostaria de inserir novamente? Sim ou Não? "); string escolha = Console.ReadLine();
                 Console.ForegroundColor = ConsoleColor.Blue;
-                arquivo = Console.ReadLine();
-                Console.ForegroundColor = corTextoOriginal;
+                
+                if (escolha.Trim().ToUpper().Substring(0, 1) == "S")
+                {
+                    Console.ForegroundColor = corTextoOriginal;
+                    break;
+                }
+                else
+                {
+                    Console.ForegroundColor = corTextoOriginal;
+                    Console.Write($"\nDigite o nome do {i}º arquivo: ");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    arquivo = Console.ReadLine();
+                    Console.ForegroundColor = corTextoOriginal;
+                }
             }
             return arquivo;
         }
