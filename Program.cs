@@ -20,7 +20,7 @@ namespace Unificador
             while (ValidaLocalDoArquivo(pasta = Console.ReadLine()))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Você precisa inserir um caminho válido, tente novamente!");
+                Console.WriteLine("\tVocê precisa inserir um caminho válido, tente novamente!");
                 Console.ForegroundColor = corTextoOriginal;
                 Console.Write("\nDigite o local da pasta em que pretende trabalhar: ");
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -35,7 +35,7 @@ namespace Unificador
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\tValor inválido, tente novamente!");
                 Console.ForegroundColor = corTextoOriginal;
-                Console.Write("O cabeçalho no arquivo possui quantas linhas? ");
+                Console.Write("\nO cabeçalho no arquivo possui quantas linhas? ");
                 Console.ForegroundColor = ConsoleColor.Green;
             }
             Console.ForegroundColor = corTextoOriginal;
@@ -70,9 +70,9 @@ namespace Unificador
             while (!int.TryParse(Console.ReadLine(), out quantidadeDeArquivos))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\nOpção inválida, tente novamente");
+                Console.WriteLine("\tOpção inválida, tente novamente");
                 Console.ForegroundColor = corTextoOriginal;
-                Console.Write("Quantos arquivos você pretende unificar? ");
+                Console.Write("\nQuantos arquivos você pretende unificar? ");
             }
             Console.ForegroundColor = corTextoOriginal;
             return quantidadeDeArquivos;
@@ -130,8 +130,9 @@ namespace Unificador
                 Console.WriteLine($"\tArquivo {arquivo} já foi inserido");
                 
                 Console.ForegroundColor = corTextoOriginal;
-                Console.Write("\nVocê gostaria de inserir novamente? Sim ou Não? "); string escolha = Console.ReadLine();
+                Console.Write("\nVocê gostaria de inserir novamente? Sim ou Não? ");
                 Console.ForegroundColor = ConsoleColor.Blue;
+                string escolha = Console.ReadLine();
                 
                 if (escolha.Trim().ToUpper().Substring(0, 1) == "S")
                 {
