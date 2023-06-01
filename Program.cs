@@ -33,7 +33,7 @@ namespace Unificador
             while (!int.TryParse(Console.ReadLine(), out cabecalho))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\tValor inválido, tente novamente!");
+                Console.WriteLine("\tOpção inválida, tente novamente!");
                 Console.ForegroundColor = corTextoOriginal;
                 Console.Write("\nO cabeçalho no arquivo possui quantas linhas? ");
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -71,7 +71,7 @@ namespace Unificador
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\tOpção inválida, tente novamente");
-                Console.ForegroundColor = corTextoOriginal;
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write("\nQuantos arquivos você pretende unificar? ");
             }
             Console.ForegroundColor = corTextoOriginal;
