@@ -76,11 +76,12 @@ namespace Unificador
             while (!arquivosParaUnificar.Contains(arquivoCompleto))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Arquivo {arquivo} não localizado, tente novamente");
+                Console.WriteLine($"\tArquivo {arquivo} não localizado, tente novamente");
                 Console.ForegroundColor = corTextoOriginal;
                 Console.Write($"\nDigite o nome do {i}º arquivo: ");
                 Console.ForegroundColor = ConsoleColor.Blue;
-                arquivo = @$"{pasta}\{Console.ReadLine()}.csv";
+                arquivo = Console.ReadLine();
+                arquivoCompleto = @$"{pasta}\{arquivo}.csv";
             }
 
             string[] lines = File.ReadAllLines($@"{arquivoCompleto}");
@@ -97,6 +98,18 @@ namespace Unificador
             Console.Write($"\nDigite o nome do {i}º arquivo: ");
             Console.ForegroundColor = ConsoleColor.Blue;
             string arquivo = Console.ReadLine();
+
+            while (string.IsNullOrWhiteSpace(arquivo))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\tO nome do Arquivo não pode ser nulo ou vazio. Tente novamente!");
+                Console.ForegroundColor = corTextoOriginal;
+
+                Console.Write($"\nDigite o nome do {i}º arquivo: ");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                arquivo = Console.ReadLine();
+                Console.ForegroundColor = corTextoOriginal;
+            }
 
             while (lstArquivosInseridos.Contains(arquivo) && i > 1)
             {
