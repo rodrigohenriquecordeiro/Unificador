@@ -48,7 +48,7 @@ namespace Unificador
             }
             Console.WriteLine();
             Console.ForegroundColor = corTextoOriginal;
-            EscreveArquivoUnificado(lstArquivos, pasta, cabecalho);
+            EscreveArquivoUnificado(lstArquivos, pasta, cabecalho, lstArquivosInseridos);
             FinalizaProcessamento(lstArquivos, corTextoOriginal, cabecalho);
 
             Console.WriteLine();
@@ -84,7 +84,7 @@ namespace Unificador
             string[] arquivosParaUnificar = Directory.GetFiles(pasta);
 
             string arquivo = VerificaSeArquivoJaFoiInserido(lstArquivosInseridos, i);
-            string arquivoCompleto = @$"{pasta}\{arquivo}.csv";
+            string arquivoCompleto = @$"{pasta}\{arquivo}";
 
             while (!arquivosParaUnificar.Contains(arquivoCompleto))
             {
@@ -94,7 +94,7 @@ namespace Unificador
                 Console.Write($"\nDigite o nome do {i}º arquivo: ");
                 Console.ForegroundColor = ConsoleColor.Blue;
                 arquivo = Console.ReadLine();
-                arquivoCompleto = @$"{pasta}\{arquivo}.csv";
+                arquivoCompleto = @$"{pasta}\{arquivo}";
             }
 
             string[] lines = File.ReadAllLines($@"{arquivoCompleto}");
@@ -108,7 +108,7 @@ namespace Unificador
         private static string VerificaSeArquivoJaFoiInserido(List<string> lstArquivosInseridos, int i)
         {
             ConsoleColor corTextoOriginal = Console.ForegroundColor;
-            Console.Write($"\nDigite o nome do {i}º arquivo: ");
+            Console.Write($"\nDigite o nome do {i}º arquivo com a extensão: ");
             Console.ForegroundColor = ConsoleColor.Blue;
             string arquivo = Console.ReadLine();
 
@@ -118,7 +118,7 @@ namespace Unificador
                 Console.WriteLine($"\tO nome do Arquivo não pode ser nulo ou vazio. Tente novamente!");
                 Console.ForegroundColor = corTextoOriginal;
 
-                Console.Write($"\nDigite o nome do {i}º arquivo: ");
+                Console.Write($"\nDigite o nome do {i}º arquivo com a extensão: ");
                 Console.ForegroundColor = ConsoleColor.Blue;
                 arquivo = Console.ReadLine();
                 Console.ForegroundColor = corTextoOriginal;
@@ -142,7 +142,7 @@ namespace Unificador
                 else
                 {
                     Console.ForegroundColor = corTextoOriginal;
-                    Console.Write($"\nDigite o nome do {i}º arquivo: ");
+                    Console.Write($"\nDigite o nome do {i}º arquivo com a extensão extensão: ");
                     Console.ForegroundColor = ConsoleColor.Blue;
                     arquivo = Console.ReadLine();
                     Console.ForegroundColor = corTextoOriginal;
@@ -158,11 +158,12 @@ namespace Unificador
             Console.ForegroundColor = corTextoOriginal;
         }
 
-        private static void EscreveArquivoUnificado(List<string> lstArquivos, string pasta, int cabecalho)
+        private static void EscreveArquivoUnificado(List<string> lstArquivos, string pasta, int cabecalho, List<string> lstArquivosInseridos)
         {
             CorrigeCabecalhoDaLista(lstArquivos, cabecalho);
 
-            using (StreamWriter sw = File.AppendText($@"{pasta}\ArquivoUnificado.csv"))
+            string[] extensao = lstArquivosInseridos.First().Split('.');
+            using (StreamWriter sw = File.AppendText($@"{pasta}\ArquivoUnificado.{extensao[1]}"))
             {
                 foreach (string line in lstArquivos)
                     sw.WriteLine(line);
